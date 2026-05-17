@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { Environment, OrbitControls } from "@react-three/drei";
+import { Environment, OrbitControls, Stats } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { NetworkGrid } from "./NetworkGrid";
 import { DataLinks } from "./DataLinks";
@@ -9,6 +9,9 @@ import { DataLinks } from "./DataLinks";
 export default function Scene() {
   return (
     <Canvas className="w-full h-screen" camera={{ position: [0, 0, 25], fov: 60 }}>
+      {/* Performance Monitoring */}
+      <Stats className="!absolute !top-32 !left-8" />
+      
       {/* Lighting */}
       <ambientLight intensity={0.2} />
       <directionalLight position={[10, 10, 5]} intensity={1} />

@@ -77,6 +77,9 @@ export function NetworkGrid() {
     }
     meshRef.current.instanceMatrix.needsUpdate = true;
     if (meshRef.current.instanceColor) meshRef.current.instanceColor.needsUpdate = true;
+    
+    // Frustum Culling Optimization: Explicitly calculate bounding sphere for the instanced mesh
+    meshRef.current.computeBoundingSphere();
   }, [positions, colors]);
 
   useFrame((state, delta) => {

@@ -1,16 +1,25 @@
-import Scene from "@/components/canvas/Scene";
+import dynamic from "next/dynamic";
 import { CyberHUD } from "@/components/ui/CyberHUD";
+import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
+
+const Scene = dynamic(() => import("@/components/canvas/Scene"), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center bg-black text-cyan-500 font-mono">
+      Initializing WebGL Engine...
+    </div>
+  ),
+});
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-between bg-black overflow-hidden">
-      {/* 2D Overlay */}
+    <main className="relative w-full h-screen bg-black overflow-hidden">
       <CyberHUD />
-      
-      {/* 3D Canvas wrapper */}
-      <div className="absolute inset-0 w-full h-screen">
-        <Scene />
-      </div>
+      <ErrorBoundary>
+        <div className="absolute inset-0 w-full h-screen">
+          <Scene />
+        </div>
+      </ErrorBoundary>
     </main>
   );
 }

@@ -4,12 +4,16 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { Activity, ShieldAlert, Globe2, Cpu } from "lucide-react";
 import { useNexusStore } from "@/store/useNexusStore";
+import { useThreatStream } from "@/hooks/useThreatStream";
 
 export function CyberHUD() {
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Connect to global Zustand store
   const { activeThreats, networkTraffic, nodeCount, systemStatus } = useNexusStore();
+  
+  // Initialize WebSocket stream mock
+  useThreatStream();
   
   useEffect(() => {
     if (!containerRef.current) return;

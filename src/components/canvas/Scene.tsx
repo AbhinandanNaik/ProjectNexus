@@ -5,10 +5,12 @@ import { Environment, OrbitControls, Stats } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { NetworkGrid } from "./NetworkGrid";
 import { DataLinks } from "./DataLinks";
+import { DynamicCamera } from "./DynamicCamera";
 
 export default function Scene() {
   return (
     <Canvas className="w-full h-screen" camera={{ position: [0, 0, 25], fov: 60 }}>
+      <DynamicCamera />
       {/* Performance Monitoring */}
       <Stats className="!absolute !top-32 !left-8" />
       

@@ -8,6 +8,7 @@ import { useThreatStream } from "@/hooks/useThreatStream";
 import { NodeModal } from "./NodeModal";
 import { SearchBar } from "./SearchBar";
 import { FilterControls } from "./FilterControls";
+import { ThemeLangToggle } from "./ThemeLangToggle";
 import { Toaster } from "sonner";
 
 export function CyberHUD() {
@@ -100,6 +101,7 @@ export function CyberHUD() {
         </div>
       </div>
     </div>
+    <ThemeLangToggle />
     </>
   );
 }

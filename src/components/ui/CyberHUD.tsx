@@ -6,13 +6,15 @@ import { Activity, ShieldAlert, Globe2, Cpu } from "lucide-react";
 import { useNexusStore } from "@/store/useNexusStore";
 import { useThreatStream } from "@/hooks/useThreatStream";
 import { NodeModal } from "./NodeModal";
+import { SearchBar } from "./SearchBar";
+import { FilterControls } from "./FilterControls";
 import { Toaster } from "sonner";
 
 export function CyberHUD() {
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Connect to global Zustand store
-  const { activeThreats, networkTraffic, nodeCount, systemStatus } = useNexusStore();
+  const { activeThreats, networkTraffic, nodeCount, systemStatus, selectedNode } = useNexusStore();
   
   // Initialize WebSocket stream mock
   useThreatStream();
@@ -42,25 +44,38 @@ export function CyberHUD() {
 
   return (
     <>
+      {/* Screen Reader Live Region for Accessibility */}
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        System Status is currently {systemStatus}. 
+        {selectedNode ? `Node ${selectedNode} selected.` : "No node selected."}
+        Active threats count is {activeThreats}.
+      </div>
+
       <Toaster theme="dark" position="top-center" toastOptions={{ style: { background: 'black', border: '1px solid #ef4444', color: '#ef4444', fontFamily: 'monospace' } }} />
       <NodeModal />
       <div ref={containerRef} className="absolute inset-0 pointer-events-none flex flex-col justify-between p-8 z-10 text-cyan-500 font-mono">
       {/* Top Bar */}
-      <div className="flex justify-between items-start">
-        <div className="gsap-item bg-black/60 border border-cyan-500/30 p-4 rounded backdrop-blur-md">
-          <h1 className="text-2xl font-bold text-white tracking-widest uppercase flex items-center gap-2">
-            <Globe2 className="w-6 h-6 text-cyan-400" />
-            Project Nexus
-          </h1>
-          <p className="text-cyan-400/70 text-sm mt-1 uppercase tracking-wider">Global Threat Map v2.4</p>
+      <div className="flex justify-between items-start pointer-events-auto">
+        <div className="flex flex-col gap-4">
+          <div className="gsap-item bg-black/60 border border-cyan-500/30 p-4 rounded backdrop-blur-md">
+            <h1 className="text-2xl font-bold text-white tracking-widest uppercase flex items-center gap-2">
+              <Globe2 className="w-6 h-6 text-cyan-400" />
+              Project Nexus
+            </h1>
+            <p className="text-cyan-400/70 text-sm mt-1 uppercase tracking-wider">Global Threat Map v2.4</p>
+          </div>
+          <SearchBar />
         </div>
         
-        <div className="gsap-item bg-black/60 border border-red-500/30 p-4 rounded backdrop-blur-md flex items-center gap-4">
-          <ShieldAlert className="w-8 h-8 text-red-500 animate-pulse" />
-          <div>
-            <div className="text-red-400 text-xs uppercase tracking-widest">Active Threats</div>
-            <div className="text-2xl font-bold text-white">{activeThreats.toLocaleString()}</div>
+        <div className="flex flex-col items-end gap-4">
+          <div className="gsap-item bg-black/60 border border-red-500/30 p-4 rounded backdrop-blur-md flex items-center gap-4">
+            <ShieldAlert className="w-8 h-8 text-red-500 animate-pulse" />
+            <div>
+              <div className="text-red-400 text-xs uppercase tracking-widest">Active Threats</div>
+              <div className="text-2xl font-bold text-white" aria-label="Threat Count">{activeThreats.toLocaleString()}</div>
+            </div>
           </div>
+          <FilterControls />
         </div>
       </div>
 

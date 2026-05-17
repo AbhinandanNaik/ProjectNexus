@@ -2,21 +2,29 @@
 
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
-import { SolarSystem } from "./SolarSystem";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import { NetworkGrid } from "./NetworkGrid";
+import { DataLinks } from "./DataLinks";
 
 export default function Scene() {
   return (
-    <Canvas className="w-full h-screen" camera={{ position: [0, 5, 10], fov: 50 }}>
+    <Canvas className="w-full h-screen" camera={{ position: [0, 0, 25], fov: 60 }}>
       {/* Lighting */}
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.2} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <Environment preset="city" />
 
-      {/* Minimum Viable Scene objects */}
-      <SolarSystem />
+      {/* Massive Data Visualization */}
+      <NetworkGrid />
+      <DataLinks />
+
+      {/* Post-Processing for Cyber Glow */}
+      <EffectComposer disableNormalPass>
+        <Bloom luminanceThreshold={0.2} mipmapBlur intensity={1.5} />
+      </EffectComposer>
 
       {/* Controls */}
-      <OrbitControls />
+      <OrbitControls autoRotate autoRotateSpeed={0.5} enablePan={false} maxDistance={40} minDistance={5} />
     </Canvas>
   );
 }

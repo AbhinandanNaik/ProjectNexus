@@ -15,16 +15,18 @@ Project Nexus is an advanced platform focusing on visualizing complex data sets 
 
 ### 2. Complex Visualizations
 - Data structures mapped to 3D entities
-- **Instancing** for rendering massive counts of objects efficiently.
-- Advanced GSAP timelines to sequence complex visual transformations.
+- **Instancing** (`InstancedMesh`) used to render 10,000 unique network nodes in a single draw call.
+- Advanced GSAP timelines used in `CyberHUD` to stagger-animate futuristic UI overlays.
 
 ### 3. Performance & Polish 
-- Custom Shaders via GLSL.
-- Post-processing effects.
-- Frustum Culling and memory management.
+- Post-processing effects via `@react-three/postprocessing` (Bloom effect) for a glowing cyber look.
+- Memory management using `gsap.context()` cleanup.
 
 ## Setup Instructions
 ```bash
 npm install
 npm run dev
 ```
+
+## Completion Status
+The project has successfully reached its finalized state as a Real-Time Cybersecurity Threat Map, integrating React, Next.js, ThreeJS, and GSAP.

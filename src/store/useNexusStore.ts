@@ -5,9 +5,11 @@ interface NexusState {
   networkTraffic: number;
   nodeCount: number;
   systemStatus: 'SECURE' | 'WARNING' | 'CRITICAL';
+  selectedNode: string | null;
   setActiveThreats: (count: number) => void;
   setNetworkTraffic: (traffic: number) => void;
   setSystemStatus: (status: 'SECURE' | 'WARNING' | 'CRITICAL') => void;
+  setSelectedNode: (id: string | null) => void;
 }
 
 export const useNexusStore = create<NexusState>((set) => ({
@@ -15,7 +17,9 @@ export const useNexusStore = create<NexusState>((set) => ({
   networkTraffic: 8.4,
   nodeCount: 10000,
   systemStatus: 'SECURE',
+  selectedNode: null,
   setActiveThreats: (count) => set({ activeThreats: count }),
   setNetworkTraffic: (traffic) => set({ networkTraffic: traffic }),
   setSystemStatus: (status) => set({ systemStatus: status }),
+  setSelectedNode: (id) => set({ selectedNode: id }),
 }));

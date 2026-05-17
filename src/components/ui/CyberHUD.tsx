@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { Activity, ShieldAlert, Globe2, Cpu } from "lucide-react";
 import { useNexusStore } from "@/store/useNexusStore";
 import { useThreatStream } from "@/hooks/useThreatStream";
+import { NodeModal } from "./NodeModal";
+import { Toaster } from "sonner";
 
 export function CyberHUD() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -39,7 +41,10 @@ export function CyberHUD() {
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 pointer-events-none flex flex-col justify-between p-8 z-10 text-cyan-500 font-mono">
+    <>
+      <Toaster theme="dark" position="top-center" toastOptions={{ style: { background: 'black', border: '1px solid #ef4444', color: '#ef4444', fontFamily: 'monospace' } }} />
+      <NodeModal />
+      <div ref={containerRef} className="absolute inset-0 pointer-events-none flex flex-col justify-between p-8 z-10 text-cyan-500 font-mono">
       {/* Top Bar */}
       <div className="flex justify-between items-start">
         <div className="gsap-item bg-black/60 border border-cyan-500/30 p-4 rounded backdrop-blur-md">
@@ -80,5 +85,6 @@ export function CyberHUD() {
         </div>
       </div>
     </div>
+    </>
   );
 }

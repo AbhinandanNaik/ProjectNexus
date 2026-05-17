@@ -94,9 +94,9 @@ export function NetworkGrid() {
 
   const handlePointerDown = (e: any) => {
     e.stopPropagation();
-    // Simulate clicking a threat node
     if (e.instanceId !== undefined) {
       setSystemStatus("CRITICAL");
+      useNexusStore.getState().setSelectedNode(`NXS-NODE-${e.instanceId}`);
     }
   };
 
